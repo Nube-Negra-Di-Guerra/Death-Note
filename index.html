@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Death Note</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Metal+Mania&family=Pirata+One&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --paper-color: #121212;
+            --text-color: #f0f0f0;
+            --accent-color: #ffffff;
+            --font-gothic: 'Pirata One', cursive;
+            --font-main: 'Cinzel', serif;
+            --font-typewriter: 'Special Elite', system-ui;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* Main Wrapper for Layout */
+        .page-wrapper {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+        }
+
+        /* Notebook Container */
+        .notebook {
+            flex: 1;
+            max-width: 650px;
+            background-color: var(--paper-color);
+            min-height: 85vh;
+            border: 2px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9), inset 0 0 100px rgba(0,0,0,0.6);
+            padding: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+        }
+
+        /* Ad Sidebar */
+        .ad-sidebar {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mini-ad {
+            background: #111;
+            border: 1px solid #222;
+            padding: 15px;
+            font-size: 0.75rem;
+            color: #555;
+            text-align: center;
+            border-radius: 3px;
+            transition: border-color 0.3s;
+        }
+
+        .mini-ad:hover {
+            border-color: #444;
+            color: #888;
+        }
+
+        .ad-label {
+            font-family: var(--font-gothic);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+
+        .notebook::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: var(--font-gothic);
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .rules {
+            font-size: 0.75rem;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-align: left;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: var(--text-color);
+            font-family: var(--font-main);
+            font-size: 1.2rem;
+            padding: 10px 5px;
+            outline: none;
+        }
+
+        button#add-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-color);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: var(--font-gothic);
+            font-size: 1.2rem;
+        }
+
+        button#add-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Modal Overlay */
+        #modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: #111;
+            border: 1px solid #333;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255,255,255,0.05);
+        }
+
+        .modal h2 {
+            font-family: var(--font-gothic);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: #000;
+            border: 1px solid #333;
+            color: #eee;
+            font-family: var(--font-typewriter);
+            padding: 10px;
+            margin-bottom: 20px;
+            resize: none;
+            outline: none;
+        }
+
+        .modal-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .modal-btns button {
+            background: transparent;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px 25px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            transition: 0.3s;
+        }
+
+        .modal-btns button:hover {
+            border-color: #fff;
+        }
+
+        /* List Styling */
+        #death-list {
+            list-style: none;
+            overflow-y: auto;
+            max-height: 50vh;
+        }
+
+        .name-entry {
+            padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+            position: relative;
+            animation: inkSpread 1s ease-out forwards;
+        }
+
+        .name-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .name-text {
+            font-family: var(--font-gothic);
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .death-details {
+            font-family: var(--font-typewriter);
+            font-size: 0.95rem;
+            color: #888;
+            margin-top: 8px;
+            padding-left: 5px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .erase-btn {
+            background: transparent;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .erase-btn:hover { color: #900; }
+
+        @keyframes inkSpread {
+            from { opacity: 0; filter: blur(5px); transform: translateX(-5px); }
+            to { opacity: 1; filter: blur(0); transform: translateX(0); }
+        }
+
+        /* Scrollbar */
+        #death-list::-webkit-scrollbar { width: 3px; }
+        #death-list::-webkit-scrollbar-track { background: transparent; }
+        #death-list::-webkit-scrollbar-thumb { background: #333; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .page-wrapper { flex-direction: column; align-items: center; }
+            .ad-sidebar { width: 100%; max-width: 650px; flex-direction: row; }
+            .mini-ad { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="notebook">
+            <header>
+                <h1>Death Note</h1>
+                <div class="rules">
+                    • The human whose name is written in this note shall die.<br>
+                    • If the cause of death is not specified, the person will die of a heart attack in 40 seconds.<br>
+                    • After writing the cause of death, details of the death should be written in the next 6 minutes and 40 seconds.
+                </div>
+            </header>
+
+            <div class="input-group">
+                <input type="text" id="name-input" placeholder="Enter a name..." autocomplete="off">
+                <button id="add-btn">WRITE</button>
+            </div>
+
+            <ul id="death-list"></ul>
+        </div>
+
+        <!-- Sidebar for Mini Ads -->
+        <aside class="ad-sidebar">
+            <div class="mini-ad">
+                <span class="ad-label">Notice</span>
+                Your advertisement here.<br>Keep it simple and dark.
+            </div>
+            <div class="mini-ad">
+                <span class="ad-label">Contract</span>
+                Trade half your life for<br>Shinigami Eyes?
+            </div>
+            <div class="mini-ad">
+                <span class="ad-label">Warning</span>
+                L is watching you.
+            </div>
+        </aside>
+    </div>
+
+    <!-- Modal for Specificities -->
+    <div id="modal-overlay">
+        <div class="modal">
+            <h2>Specify the End</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 20px; color: #aaa;">Would you like to dictate the circumstances of this sinner's demise?</p>
+            <textarea id="death-desc" maxlength="500" placeholder="Where, when, how, by what..."></textarea>
+            <div class="modal-btns">
+                <button id="no-btn">No (Heart Attack)</button>
+                <button id="yes-btn">Seal Fate</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('name-input');
+        const addBtn = document.getElementById('add-btn');
+        const list = document.getElementById('death-list');
+        const modal = document.getElementById('modal-overlay');
+        const deathDesc = document.getElementById('death-desc');
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+
+        let pendingName = '';
+
+        window.onload = () => {
+            const saved = JSON.parse(localStorage.getItem('eDeathNote') || '[]');
+            saved.forEach(entry => renderEntry(entry.name, entry.desc));
+        };
+
+        function save() {
+            const entries = Array.from(document.querySelectorAll('.name-entry')).map(el => ({
+                name: el.querySelector('.name-text').textContent,
+                desc: el.querySelector('.death-details').textContent
+            }));
+            localStorage.setItem('eDeathNote', JSON.stringify(entries));
+        }
+
+        function renderEntry(name, desc) {
+            const li = document.createElement('li');
+            li.className = 'name-entry';
+            li.innerHTML = `
+                <div class="name-header">
+                    <span class="name-text">${name}</span>
+                    <button class="erase-btn">Erase</button>
+                </div>
+                <div class="death-details">${desc}</div>
+            `;
+
+            li.querySelector('.erase-btn').onclick = () => {
+                li.style.opacity = '0';
+                setTimeout(() => { li.remove(); save(); }, 300);
+            };
+
+            list.prepend(li);
+        }
+
+        function triggerModal() {
+            const name = input.value.trim();
+            if (!name) return;
+            pendingName = name;
+            input.value = '';
+            modal.style.display = 'flex';
+            deathDesc.focus();
+        }
+
+        yesBtn.onclick = () => {
+            const desc = deathDesc.value.trim() || "Heart Attack (40 seconds)";
+            renderEntry(pendingName, desc);
+            closeModal();
+        };
+
+        noBtn.onclick = () => {
+            renderEntry(pendingName, "Heart Attack (40 seconds)");
+            closeModal();
+        };
+
+        function closeModal() {
+            modal.style.display = 'none';
+            deathDesc.value = '';
+            pendingName = '';
+            save();
+        }
+
+        addBtn.onclick = triggerModal;
+        input.onkeypress = (e) => { if(e.key === 'Enter') triggerModal(); };
+    </script>
+</body>
+</html>
