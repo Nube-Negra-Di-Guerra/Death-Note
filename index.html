@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Death Note</title>
+    <title>E-Death Note | Professional Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Metal+Mania&family=Pirata+One&family=Special+Elite&display=swap" rel="stylesheet">
+    <!-- 
+        Typography Selection:
+        - UnifrakturMaguntia: Authentic Blackletter/Gothic for the header (Professional & Ominous)
+        - IM Fell English SC: Classic, slightly weathered Serif for UI and Rules
+        - Nanum Pen Script: High-quality ink-like handwriting for names
+        - Spectral: Sophisticated serif for death details
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Nanum+Pen+Script&family=Spectral:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --paper-color: #121212;
-            --text-color: #f0f0f0;
-            --accent-color: #ffffff;
-            --font-gothic: 'Pirata One', cursive;
-            --font-main: 'Cinzel', serif;
-            --font-typewriter: 'Special Elite', system-ui;
+            --bg-color: #050505;
+            --paper-color: #0f0f0f;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+            --accent: #ffffff;
+            --border: #222222;
+            --font-gothic: 'UnifrakturMaguntia', cursive;
+            --font-ui: 'IM Fell English SC', serif;
+            --font-hand: 'Nanum Pen Script', cursive;
+            --font-detail: 'Spectral', serif;
         }
 
         * {
@@ -26,298 +36,323 @@
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-main);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
             display: flex;
             justify-content: center;
-            align-items: flex-start;
             min-height: 100vh;
-            padding: 40px 20px;
-            overflow-x: hidden;
+            padding: 60px 20px;
+            line-height: 1.6;
         }
 
-        /* Main Wrapper for Layout */
-        .page-wrapper {
-            display: flex;
-            gap: 30px;
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 40px;
             width: 100%;
-            max-width: 1000px;
-            justify-content: center;
+            max-width: 1100px;
         }
 
-        /* Notebook Container */
+        /* Notebook Section */
         .notebook {
-            flex: 1;
-            max-width: 650px;
             background-color: var(--paper-color);
-            min-height: 85vh;
-            border: 2px solid #333;
-            box-shadow: 0 0 50px rgba(0,0,0,0.9), inset 0 0 100px rgba(0,0,0,0.6);
-            padding: 40px;
+            border: 1px solid var(--border);
+            padding: 60px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.8);
             position: relative;
+            min-height: 800px;
             display: flex;
             flex-direction: column;
-            border-radius: 5px;
         }
 
-        /* Ad Sidebar */
-        .ad-sidebar {
-            width: 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .mini-ad {
-            background: #111;
-            border: 1px solid #222;
-            padding: 15px;
-            font-size: 0.75rem;
-            color: #555;
-            text-align: center;
-            border-radius: 3px;
-            transition: border-color 0.3s;
-        }
-
-        .mini-ad:hover {
-            border-color: #444;
-            color: #888;
-        }
-
-        .ad-label {
-            font-family: var(--font-gothic);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            display: block;
-            color: #333;
-        }
-
-        .notebook::before {
-            content: '';
+        /* Subtle Texture Overlay */
+        .notebook::after {
+            content: "";
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
+            opacity: 0.03;
             pointer-events: none;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         h1 {
             font-family: var(--font-gothic);
-            font-size: 3.5rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .rules {
-            font-size: 0.75rem;
-            font-style: italic;
-            color: #666;
+            font-size: 5rem;
+            font-weight: 400;
+            letter-spacing: 8px;
+            color: var(--accent);
             margin-bottom: 20px;
-            line-height: 1.4;
+            text-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+
+        .rules-box {
             text-align: left;
-            border-bottom: 1px solid #222;
-            padding-bottom: 15px;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 25px 0;
+            margin-bottom: 40px;
         }
 
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+        .rules-box p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-style: italic;
         }
 
-        input[type="text"] {
-            flex-grow: 1;
+        /* Input Area */
+        .input-section {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .input-section input {
+            width: 100%;
             background: transparent;
             border: none;
             border-bottom: 1px solid #333;
-            color: var(--text-color);
-            font-family: var(--font-main);
-            font-size: 1.2rem;
-            padding: 10px 5px;
+            color: var(--text-primary);
+            font-family: var(--font-hand);
+            font-size: 2.5rem;
+            padding: 10px 0;
             outline: none;
+            transition: border-color 0.4s;
         }
 
-        button#add-btn {
+        .input-section input:focus {
+            border-color: var(--accent);
+        }
+
+        .input-section label {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 0.8rem;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .write-btn {
+            position: absolute;
+            right: 0;
+            bottom: 15px;
             background: transparent;
             border: 1px solid #333;
-            color: var(--text-color);
-            padding: 10px 20px;
+            color: var(--text-secondary);
+            padding: 5px 20px;
+            font-family: var(--font-ui);
             cursor: pointer;
-            font-family: var(--font-gothic);
-            font-size: 1.2rem;
+            transition: all 0.3s;
+            font-size: 1rem;
         }
 
-        button#add-btn:hover {
-            background: #fff;
-            color: #000;
+        .write-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(255,255,255,0.05);
         }
 
-        /* Modal Overlay */
+        /* Entries List */
+        #death-list {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .entry {
+            margin-bottom: 45px;
+            animation: fadeIn 1.2s ease-out;
+            position: relative;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .victim-name {
+            font-family: var(--font-hand);
+            font-size: 3.2rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .death-note {
+            font-family: var(--font-detail);
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            padding-left: 10px;
+            border-left: 2px solid #1a1a1a;
+            max-width: 90%;
+            font-style: italic;
+        }
+
+        .erase-link {
+            font-size: 0.7rem;
+            color: #333;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .erase-link:hover { color: #600; }
+
+        /* Sidebar Ads */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .ad-unit {
+            background: #0a0a0a;
+            border: 1px solid #111;
+            padding: 25px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .ad-unit:hover {
+            border-color: #222;
+            transform: translateY(-2px);
+        }
+
+        .ad-tag {
+            font-size: 0.7rem;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .ad-content {
+            font-size: 0.9rem;
+            color: #666;
+            font-family: var(--font-detail);
+        }
+
+        /* Modal Redesign */
         #modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
         .modal {
-            background: #111;
-            border: 1px solid #333;
-            padding: 30px;
-            max-width: 500px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 50px;
+            max-width: 600px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 0 30px rgba(255,255,255,0.05);
         }
 
         .modal h2 {
             font-family: var(--font-gothic);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
         }
 
-        textarea {
+        .modal textarea {
             width: 100%;
-            height: 120px;
+            height: 180px;
             background: #000;
-            border: 1px solid #333;
-            color: #eee;
-            font-family: var(--font-typewriter);
-            padding: 10px;
-            margin-bottom: 20px;
-            resize: none;
+            border: 1px solid #222;
+            color: var(--text-primary);
+            font-family: var(--font-hand);
+            font-size: 1.5rem;
+            padding: 20px;
+            margin-bottom: 30px;
             outline: none;
+            resize: none;
         }
 
-        .modal-btns {
+        .modal-actions {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
         }
 
-        .modal-btns button {
+        .modal-actions button {
             background: transparent;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 8px 25px;
+            border: 1px solid #333;
+            color: var(--text-secondary);
+            padding: 10px 30px;
+            font-family: var(--font-ui);
             cursor: pointer;
-            font-family: var(--font-main);
+            font-size: 1.1rem;
             transition: 0.3s;
         }
 
-        .modal-btns button:hover {
-            border-color: #fff;
+        .modal-actions button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
-        /* List Styling */
-        #death-list {
-            list-style: none;
-            overflow-y: auto;
-            max-height: 50vh;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .name-entry {
-            padding: 20px 0;
-            border-bottom: 1px solid #1a1a1a;
-            position: relative;
-            animation: inkSpread 1s ease-out forwards;
-        }
-
-        .name-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .name-text {
-            font-family: var(--font-gothic);
-            font-size: 2rem;
-            letter-spacing: 1px;
-        }
-
-        .death-details {
-            font-family: var(--font-typewriter);
-            font-size: 0.95rem;
-            color: #888;
-            margin-top: 8px;
-            padding-left: 5px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .erase-btn {
-            background: transparent;
-            border: none;
-            color: #333;
-            cursor: pointer;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-        }
-
-        .erase-btn:hover { color: #900; }
-
-        @keyframes inkSpread {
-            from { opacity: 0; filter: blur(5px); transform: translateX(-5px); }
-            to { opacity: 1; filter: blur(0); transform: translateX(0); }
-        }
-
-        /* Scrollbar */
-        #death-list::-webkit-scrollbar { width: 3px; }
-        #death-list::-webkit-scrollbar-track { background: transparent; }
-        #death-list::-webkit-scrollbar-thumb { background: #333; }
 
         /* Responsive */
-        @media (max-width: 900px) {
-            .page-wrapper { flex-direction: column; align-items: center; }
-            .ad-sidebar { width: 100%; max-width: 650px; flex-direction: row; }
-            .mini-ad { flex: 1; }
+        @media (max-width: 950px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { flex-direction: row; flex-wrap: wrap; }
+            .ad-unit { flex: 1; min-width: 250px; }
+            h1 { font-size: 3.5rem; }
+            .notebook { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page-wrapper">
-        <div class="notebook">
+    <div class="container">
+        <main class="notebook">
             <header>
                 <h1>Death Note</h1>
-                <div class="rules">
-                    • The human whose name is written in this note shall die.<br>
-                    • If the cause of death is not specified, the person will die of a heart attack in 40 seconds.<br>
-                    • After writing the cause of death, details of the death should be written in the next 6 minutes and 40 seconds.
+                <div class="rules-box">
+                    <p>• The human whose name is written in this note shall die.</p>
+                    <p>• If the cause of death is not specified, the person will die of a heart attack in 40 seconds.</p>
+                    <p>• Details of the death should be written in the next 6 minutes and 40 seconds.</p>
                 </div>
             </header>
 
-            <div class="input-group">
-                <input type="text" id="name-input" placeholder="Enter a name..." autocomplete="off">
-                <button id="add-btn">WRITE</button>
-            </div>
+            <section class="input-section">
+                <label>Target Identity</label>
+                <input type="text" id="name-input" placeholder="Name of the sinner..." autocomplete="off">
+                <button class="write-btn" id="add-btn">EXECUTE</button>
+            </section>
 
             <ul id="death-list"></ul>
-        </div>
+        </main>
 
-        <!-- Sidebar for Mini Ads -->
-        <aside class="ad-sidebar">
-            <div class="mini-ad">
-                <span class="ad-label">Notice</span>
-                Your advertisement here.<br>Keep it simple and dark.
+        <aside class="sidebar">
+            <div class="ad-unit">
+                <span class="ad-tag">Confidential</span>
+                <div class="ad-content">Your message can manifest here. Subtle, dark, and professional.</div>
             </div>
-            <div class="mini-ad">
-                <span class="ad-label">Contract</span>
-                Trade half your life for<br>Shinigami Eyes?
+            <div class="ad-unit">
+                <span class="ad-tag">Investigation</span>
+                <div class="ad-content">"Justice will prevail, no matter what." - L</div>
             </div>
-            <div class="mini-ad">
-                <span class="ad-label">Warning</span>
-                L is watching you.
+            <div class="ad-unit">
+                <span class="ad-tag">Pact</span>
+                <div class="ad-content">Shinigami eyes are available for those who dare to pay the price.</div>
             </div>
         </aside>
     </div>
@@ -326,10 +361,9 @@
     <div id="modal-overlay">
         <div class="modal">
             <h2>Specify the End</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px; color: #aaa;">Would you like to dictate the circumstances of this sinner's demise?</p>
-            <textarea id="death-desc" maxlength="500" placeholder="Where, when, how, by what..."></textarea>
-            <div class="modal-btns">
-                <button id="no-btn">No (Heart Attack)</button>
+            <textarea id="death-desc" maxlength="500" placeholder="Describe the circumstances..."></textarea>
+            <div class="modal-actions">
+                <button id="no-btn">Heart Attack</button>
                 <button id="yes-btn">Seal Fate</button>
             </div>
         </div>
@@ -347,32 +381,34 @@
         let pendingName = '';
 
         window.onload = () => {
-            const saved = JSON.parse(localStorage.getItem('eDeathNote') || '[]');
+            const saved = JSON.parse(localStorage.getItem('eDeathNotePro') || '[]');
             saved.forEach(entry => renderEntry(entry.name, entry.desc));
         };
 
         function save() {
-            const entries = Array.from(document.querySelectorAll('.name-entry')).map(el => ({
-                name: el.querySelector('.name-text').textContent,
-                desc: el.querySelector('.death-details').textContent
+            const entries = Array.from(document.querySelectorAll('.entry')).map(el => ({
+                name: el.querySelector('.victim-name').textContent,
+                desc: el.querySelector('.death-note').textContent
             }));
-            localStorage.setItem('eDeathNote', JSON.stringify(entries));
+            localStorage.setItem('eDeathNotePro', JSON.stringify(entries));
         }
 
         function renderEntry(name, desc) {
             const li = document.createElement('li');
-            li.className = 'name-entry';
+            li.className = 'entry';
             li.innerHTML = `
-                <div class="name-header">
-                    <span class="name-text">${name}</span>
-                    <button class="erase-btn">Erase</button>
+                <div class="entry-header">
+                    <span class="victim-name">${name}</span>
+                    <span class="erase-link">Erase</span>
                 </div>
-                <div class="death-details">${desc}</div>
+                <div class="death-note">${desc}</div>
             `;
 
-            li.querySelector('.erase-btn').onclick = () => {
+            li.querySelector('.erase-link').onclick = () => {
                 li.style.opacity = '0';
-                setTimeout(() => { li.remove(); save(); }, 300);
+                li.style.transform = 'translateX(20px)';
+                li.style.transition = 'all 0.5s';
+                setTimeout(() => { li.remove(); save(); }, 500);
             };
 
             list.prepend(li);
@@ -388,13 +424,13 @@
         }
 
         yesBtn.onclick = () => {
-            const desc = deathDesc.value.trim() || "Heart Attack (40 seconds)";
+            const desc = deathDesc.value.trim() || "Died of a sudden heart attack after 40 seconds.";
             renderEntry(pendingName, desc);
             closeModal();
         };
 
         noBtn.onclick = () => {
-            renderEntry(pendingName, "Heart Attack (40 seconds)");
+            renderEntry(pendingName, "Died of a sudden heart attack after 40 seconds.");
             closeModal();
         };
 
