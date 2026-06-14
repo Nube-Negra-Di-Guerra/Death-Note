@@ -1,0 +1,340 @@
+/*
+ * style.css
+ * Description: This file contains all the styling rules for the E-Death Note web application.
+ * It defines the visual appearance, layout, typography, and responsive behavior.
+ * The design aims for a high-contrast, gothic, and professional aesthetic inspired by the Death Note manga.
+ */
+
+/* Root Variables: Define global CSS variables for easy theme management and consistency. */
+:root {
+    /* Color Palette */
+    --bg-color: #000000; /* Pure black background for maximum contrast in dark mode */
+    --paper-color: #0a0a0a; /* Slightly lighter black for the notebook background */
+    --text-primary: #ffffff; /* Pure white for main text, ensuring high readability */
+    --text-secondary: #cccccc; /* Light grey for secondary information and subtle details */
+    --accent: #ffffff; /* Accent color, primarily used for highlights and interactive elements */
+    --border: #333333; /* Dark grey for borders and separators */
+    --ad-bg: #050505; /* Background for advertisement units */
+    --toggle-bg: #111; /* Background for the theme toggle button */
+
+    /* Typography - Google Fonts are preloaded in index.html */
+    --font-gothic: 'UnifrakturMaguntia', cursive; /* Ominous, classic gothic font for main titles */
+    --font-ui: 'IM Fell English', serif; /* Clear, legible serif font for UI elements, rules, and buttons */
+    --font-hand: 'Kalam', cursive; /* Bold, handwritten-style font for victim names and modal input */
+    --font-detail: 'Lora', serif; /* High-contrast serif for death details and ad content */
+}
+
+/* Light Mode Variables: Overrides root variables when the 'data-theme' attribute is set to 'light' on the HTML element. */
+[data-theme="light"] {
+    --bg-color: #e0e0e0; /* Light grey background for light mode */
+    --paper-color: #ffffff; /* Pure white for the notebook background in light mode */
+    --text-primary: #000000; /* Pure black for main text */
+    --text-secondary: #444444; /* Dark grey for secondary information */
+    --accent: #000000; /* Accent color for light mode */
+    --border: #cccccc; /* Light grey for borders */
+    --ad-bg: #f5f5f5; /* Lighter background for advertisement units */
+    --toggle-bg: #fff; /* White background for the theme toggle button */
+}
+
+/* Global Reset and Transitions: Apply basic reset and smooth transitions for theme changes. */
+* {
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default paddings */
+    /* Smooth transition for color and background changes when switching themes */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Body Styling: Sets up the main page layout and default typography. */
+body {
+    background-color: var(--bg-color); /* Uses the background color from root or light mode variables */
+    color: var(--text-primary); /* Uses the primary text color */
+    font-family: var(--font-ui); /* Default font for the entire body */
+    display: flex; /* Enables flexbox for centering content */
+    justify-content: center; /* Centers content horizontally */
+    min-height: 100vh; /* Ensures the body takes at least the full viewport height */
+    padding: 60px 20px 100px 20px; /* Top, right, left padding, and increased bottom padding to prevent toggle overlap */
+    line-height: 1.8; /* Increased line height for improved readability of paragraphs */
+}
+
+/* Theme Toggle Container: Styles the floating button for switching themes. */
+.theme-toggle-container {
+    position: fixed; /* Fixed position relative to the viewport */
+    bottom: 30px; /* 30px from the bottom */
+    right: 30px; /* 30px from the right */
+    z-index: 1001; /* Ensures it stays on top of other elements */
+    background: var(--toggle-bg); /* Background color from theme variables */
+    border: 1px solid var(--border); /* Border color from theme variables */
+    border-radius: 50%; /* Makes it a perfect circle */
+    width: 60px; /* Fixed width */
+    height: 60px; /* Fixed height */
+    display: flex; /* Enables flexbox for centering the icon */
+    justify-content: center; /* Centers icon horizontally */
+    align-items: center; /* Centers icon vertically */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Subtle shadow for depth */
+    transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.theme-toggle-container:hover {
+    transform: scale(1.1); /* Slightly enlarges the button on hover */
+}
+
+.toggle-icon {
+    font-size: 1.8rem; /* Size of the moon/sun emoji icon */
+    display: flex; /* Ensures the emoji is centered within its container */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Content Container: Grid layout for the notebook and sidebar. */
+.container {
+    display: grid; /* Uses CSS Grid for flexible layout */
+    grid-template-columns: 1fr 320px; /* One column for notebook (takes remaining space), one fixed 320px for sidebar */
+    gap: 50px; /* Space between grid items */
+    width: 100%; /* Takes full width available */
+    max-width: 1200px; /* Maximum width for the entire layout */
+}
+
+/* Notebook Styling: Defines the main Death Note appearance. */
+.notebook {
+    background-color: var(--paper-color); /* Notebook background color from theme variables */
+    border: 2px solid var(--border); /* Border color from theme variables */
+    padding: 80px; /* Generous padding inside the notebook */
+    box-shadow: 0 30px 100px rgba(0,0,0,0.5); /* Prominent shadow for a physical depth effect */
+    position: relative; /* Needed for absolute positioning of pseudo-elements or children */
+    min-height: 900px; /* Minimum height to ensure it looks like a substantial book */
+    display: flex; /* Enables flexbox for internal layout */
+    flex-direction: column; /* Stacks children vertically */
+}
+
+/* Header Section: Contains the main title and rules. */
+header {
+    text-align: center; /* Centers text within the header */
+    margin-bottom: 60px; /* Space below the header */
+}
+
+h1 {
+    font-family: var(--font-gothic); /* Gothic font for the main title */
+    font-size: 6rem; /* Large font size for impact */
+    font-weight: 400; /* Standard weight for this font */
+    letter-spacing: 10px; /* Wide letter spacing for dramatic effect */
+    color: var(--accent); /* Accent color for the title */
+    margin-bottom: 30px; /* Space below the title */
+}
+
+/* Rules Box: Styles the section containing the Death Note rules. */
+.rules-box {
+    text-align: left; /* Aligns text to the left */
+    border-top: 2px solid var(--border); /* Top border from theme variables */
+    border-bottom: 2px solid var(--border); /* Bottom border from theme variables */
+    padding: 40px 0; /* Vertical padding */
+    margin-bottom: 60px; /* Space below the rules box */
+}
+
+.rules-box p {
+    font-size: 1.3rem; /* Large font size for readability */
+    color: var(--text-primary); /* Primary text color for rules */
+    margin-bottom: 15px; /* Space between each rule paragraph */
+    font-weight: 400; /* Standard font weight */
+}
+
+/* Input Section: Area for entering names and the 
+/* Input Section: Area for entering names and the 'WRITE' button. */
+.input-section {
+    margin-bottom: 80px; /* Space below the input section */
+    position: relative; /* Needed for absolute positioning of label and button */
+}
+
+.input-section input {
+    width: 100%; /* Takes full width of its container */
+    background: transparent; /* Transparent background */
+    border: none; /* No default border */
+    border-bottom: 3px solid var(--border); /* Thick bottom border from theme variables */
+    color: var(--text-primary); /* Primary text color for input text */
+    font-family: var(--font-hand); /* Handwritten font for input */
+    font-size: 3.5rem; /* Large font size for input */
+    padding: 15px 0; /* Vertical padding */
+    outline: none; /* Remove outline on focus */
+}
+
+.input-section label {
+    position: absolute; /* Absolute positioning relative to .input-section */
+    top: -30px; /* Position above the input field */
+    left: 0; /* Align to the left */
+    font-size: 1.1rem; /* Readable font size */
+    color: var(--text-secondary); /* Secondary text color */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 3px; /* Spaced out letters */
+}
+
+.write-btn {
+    position: absolute; /* Absolute positioning relative to .input-section */
+    right: 0; /* Align to the right */
+    bottom: 20px; /* Position at the bottom of the input field */
+    background: var(--text-primary); /* Solid background from theme variables */
+    border: none; /* No border */
+    color: var(--paper-color); /* Text color contrasts with button background */
+    padding: 10px 30px; /* Padding for the button */
+    font-family: var(--font-ui); /* UI font for button text */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1.3rem; /* Readable font size */
+}
+
+/* Death List Styling: Styles the list of names and their death details. */
+#death-list {
+    list-style: none; /* Remove default list bullets */
+    flex-grow: 1; /* Allows the list to take up available vertical space */
+}
+
+.entry {
+    margin-bottom: 60px; /* Space between each entry */
+    border-bottom: 1px solid var(--border); /* Separator line */
+    padding-bottom: 30px; /* Padding below the separator */
+    /* Animation for new entries (defined in script.js) */
+    /* animation: inkSpread 1.5s ease-out; */
+    position: relative; /* Needed for potential absolute positioning within entries */
+}
+
+.entry-header {
+    display: flex; /* Flexbox for name and erase link */
+    justify-content: space-between; /* Puts space between name and erase link */
+    align-items: baseline; /* Aligns items at their text baseline */
+    margin-bottom: 15px; /* Space below the header */
+}
+
+.victim-name {
+    font-family: var(--font-hand); /* Handwritten font for victim names */
+    font-size: 4.5rem; /* Very large font size for impact */
+    color: var(--text-primary); /* Primary text color */
+    line-height: 1; /* Compact line height */
+    font-weight: 700; /* Bold weight */
+}
+
+.death-note {
+    font-family: var(--font-detail); /* Detail font for death descriptions */
+    font-size: 1.4rem; /* Readable font size */
+    color: var(--text-secondary); /* Secondary text color */
+    padding-left: 20px; /* Indentation for the description */
+    border-left: 4px solid var(--border); /* Left border as a visual separator */
+    max-width: 95%; /* Limits width for better readability */
+    font-style: italic; /* Italic style for descriptions */
+}
+
+.erase-link {
+    font-size: 1.1rem; /* Increased font size for readability */
+    font-family: var(--font-ui); /* Using clearer UI font for the link */
+    color: #ff4444; /* High visibility red for the erase action */
+    text-decoration: underline; /* Underline for clear link indication */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 2px; /* Spaced out letters */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text for emphasis */
+}
+
+/* Sidebar Styling: Styles the advertisement/notice section. */
+.sidebar {
+    display: flex; /* Flexbox for stacking ad units */
+    flex-direction: column; /* Stacks children vertically */
+    gap: 30px; /* Space between ad units */
+}
+
+.ad-unit {
+    background: var(--ad-bg); /* Background color from theme variables */
+    border: 2px solid var(--border); /* Border from theme variables */
+    padding: 35px; /* Padding inside ad units */
+}
+
+.ad-tag {
+    font-size: 0.9rem; /* Smaller font size for tags */
+    color: var(--text-secondary); /* Secondary text color */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 3px; /* Spaced out letters */
+    margin-bottom: 20px; /* Space below the tag */
+    display: block; /* Ensures it takes full width */
+}
+
+.ad-content {
+    font-size: 1.1rem; /* Readable font size for ad content */
+    color: var(--text-secondary); /* Secondary text color */
+    font-family: var(--font-detail); /* Detail font for ad content */
+}
+
+/* Modal Overlay Styling: Styles the background overlay when the modal is active. */
+#modal-overlay {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 0; left: 0; width: 100%; height: 100%; /* Full screen coverage */
+    background: rgba(0,0,0,0.9); /* Semi-transparent black background */
+    display: none; /* Hidden by default */
+    justify-content: center; /* Centers modal horizontally */
+    align-items: center; /* Centers modal vertically */
+    z-index: 1000; /* Ensures it appears above other content */
+}
+
+/* Modal Styling: Styles the actual modal dialog box. */
+.modal {
+    background: var(--paper-color); /* Background color from theme variables */
+    border: 2px solid var(--border); /* Border from theme variables */
+    padding: 60px; /* Generous padding inside the modal */
+    max-width: 700px; /* Maximum width for the modal */
+    width: 95%; /* Takes 95% of available width */
+    text-align: center; /* Centers text within the modal */
+}
+
+.modal h2 {
+    font-family: var(--font-ui); /* UI font for modal header */
+    font-size: 3rem; /* Large font size for modal header */
+    margin-bottom: 40px; /* Space below the header */
+    color: var(--text-primary); /* Primary text color */
+}
+
+.modal textarea {
+    width: 100%; /* Takes full width of its container */
+    height: 250px; /* Fixed height for the textarea */
+    background: var(--bg-color); /* Background color from theme variables */
+    border: 2px solid var(--border); /* Border from theme variables */
+    color: var(--text-primary); /* Primary text color for textarea input */
+    font-family: var(--font-hand); /* Handwritten font for textarea input */
+    font-size: 2rem; /* Large font size for input */
+    padding: 25px; /* Padding inside the textarea */
+    margin-bottom: 40px; /* Space below the textarea */
+    outline: none; /* Remove outline on focus */
+    resize: none; /* Prevent resizing of the textarea */
+}
+
+.modal-actions {
+    display: flex; /* Flexbox for modal buttons */
+    justify-content: center; /* Centers buttons horizontally */
+    gap: 40px; /* Space between buttons */
+}
+
+.modal-actions button {
+    background: transparent; /* Transparent background */
+    border: 2px solid var(--border); /* Border from theme variables */
+    color: var(--text-primary); /* Primary text color */
+    padding: 15px 40px; /* Padding for buttons */
+    font-family: var(--font-ui); /* UI font for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1.4rem; /* Readable font size */
+}
+
+.modal-actions button:hover {
+    background: var(--text-primary); /* Background changes on hover */
+    color: var(--paper-color); /* Text color changes on hover */
+}
+
+/* Keyframe Animations */
+@keyframes inkSpread {
+    from { opacity: 0; filter: blur(10px); } /* Starts invisible and blurred */
+    to { opacity: 1; filter: blur(0); } /* Ends visible and clear */
+}
+
+/* Responsive Design: Adjusts layout for smaller screens. */
+@media (max-width: 1000px) {
+    .container { grid-template-columns: 1fr; } /* Stacks notebook and sidebar vertically */
+    .notebook { padding: 40px; } /* Reduced padding for smaller screens */
+    h1 { font-size: 4rem; } /* Reduced header font size */
+    .victim-name { font-size: 3rem; } /* Reduced victim name font size */
+    .theme-toggle-container { bottom: 20px; right: 20px; } /* Slightly smaller offset for toggle */
+}

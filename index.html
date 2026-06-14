@@ -1,328 +1,45 @@
+<!--
+ * index.html
+ * Description: This is the main HTML file for the E-Death Note web application.
+ * It provides the structure and content, linking to external CSS for styling and JavaScript for interactivity.
+ * The design aims for a high-contrast, gothic, and professional aesthetic, while being religiously neutral.
+ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Death Note | Refined Edition</title>
+    
+    <!-- Google Fonts Preconnect: Optimizes font loading performance by pre-connecting to Google Fonts servers. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 
+        Google Fonts Import: Imports selected fonts for the application.
+        These fonts are chosen for their gothic, handwritten, and readable qualities.
+        - UnifrakturMaguntia: Used for the main 'Death Note' title (gothic).
+        - IM Fell English: Used for UI elements, rules, and buttons (classic serif).
+        - Kalam: Used for victim names and modal input (bold handwritten).
+        - Lora: Used for death details and ad content (high-contrast serif).
+    -->
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Kalam:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #000000;
-            --paper-color: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --accent: #ffffff;
-            --border: #333333;
-            --ad-bg: #050505;
-            --toggle-bg: #111;
-            --font-gothic: 'UnifrakturMaguntia', cursive;
-            --font-ui: 'IM Fell English', serif;
-            --font-hand: 'Kalam', cursive;
-            --font-detail: 'Lora', serif;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #e0e0e0;
-            --paper-color: #ffffff;
-            --text-primary: #000000;
-            --text-secondary: #444444;
-            --accent: #000000;
-            --border: #cccccc;
-            --ad-bg: #f5f5f5;
-            --toggle-bg: #fff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-ui);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 60px 20px 100px 20px; /* Added bottom padding for toggle */
-            line-height: 1.8;
-        }
-
-        /* Refined Theme Toggle */
-        .theme-toggle-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1001;
-            background: var(--toggle-bg);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
-        }
-
-        .theme-toggle-container:hover {
-            transform: scale(1.1);
-        }
-
-        .toggle-icon {
-            font-size: 1.8rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 50px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .notebook {
-            background-color: var(--paper-color);
-            border: 2px solid var(--border);
-            padding: 80px;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
-            position: relative;
-            min-height: 900px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        h1 {
-            font-family: var(--font-gothic);
-            font-size: 6rem;
-            font-weight: 400;
-            letter-spacing: 10px;
-            color: var(--accent);
-            margin-bottom: 30px;
-        }
-
-        .rules-box {
-            text-align: left;
-            border-top: 2px solid var(--border);
-            border-bottom: 2px solid var(--border);
-            padding: 40px 0;
-            margin-bottom: 60px;
-        }
-
-        .rules-box p {
-            font-size: 1.3rem;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-        }
-
-        .input-section {
-            margin-bottom: 80px;
-            position: relative;
-        }
-
-        .input-section input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 3px solid var(--border);
-            color: var(--text-primary);
-            font-family: var(--font-hand);
-            font-size: 3.5rem;
-            padding: 15px 0;
-            outline: none;
-        }
-
-        .input-section label {
-            position: absolute;
-            top: -30px;
-            left: 0;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .write-btn {
-            position: absolute;
-            right: 0;
-            bottom: 20px;
-            background: var(--text-primary);
-            border: none;
-            color: var(--paper-color);
-            padding: 10px 30px;
-            font-family: var(--font-ui);
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.3rem;
-        }
-
-        #death-list {
-            list-style: none;
-            flex-grow: 1;
-        }
-
-        .entry {
-            margin-bottom: 60px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 30px;
-        }
-
-        .entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 15px;
-        }
-
-        .victim-name {
-            font-family: var(--font-hand);
-            font-size: 4.5rem;
-            color: var(--text-primary);
-            line-height: 1;
-            font-weight: 700;
-        }
-
-        .death-note {
-            font-family: var(--font-detail);
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            padding-left: 20px;
-            border-left: 4px solid var(--border);
-            max-width: 95%;
-            font-style: italic;
-        }
-
-        .erase-link {
-            font-size: 1.1rem;
-            font-family: var(--font-ui);
-            color: #ff4444;
-            text-decoration: underline;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .ad-unit {
-            background: var(--ad-bg);
-            border: 2px solid var(--border);
-            padding: 35px;
-        }
-
-        .ad-tag {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .ad-content {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-family: var(--font-detail);
-        }
-
-        /* Modal */
-        #modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal {
-            background: var(--paper-color);
-            border: 2px solid var(--border);
-            padding: 60px;
-            max-width: 700px;
-            width: 95%;
-            text-align: center;
-        }
-
-        .modal h2 {
-            font-family: var(--font-ui);
-            font-size: 3rem;
-            margin-bottom: 40px;
-            color: var(--text-primary);
-        }
-
-        .modal textarea {
-            width: 100%;
-            height: 250px;
-            background: var(--bg-color);
-            border: 2px solid var(--border);
-            color: var(--text-primary);
-            font-family: var(--font-hand);
-            font-size: 2rem;
-            padding: 25px;
-            margin-bottom: 40px;
-            outline: none;
-            resize: none;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-        }
-
-        .modal-actions button {
-            background: transparent;
-            border: 2px solid var(--border);
-            color: var(--text-primary);
-            padding: 15px 40px;
-            font-family: var(--font-ui);
-            cursor: pointer;
-            font-size: 1.4rem;
-        }
-
-        .modal-actions button:hover {
-            background: var(--text-primary);
-            color: var(--paper-color);
-        }
-
-        @media (max-width: 1000px) {
-            .container { grid-template-columns: 1fr; }
-            .notebook { padding: 40px; }
-            h1 { font-size: 4rem; }
-            .victim-name { font-size: 3rem; }
-            .theme-toggle-container { bottom: 20px; right: 20px; }
-        }
-    </style>
+    
+    <!-- External Stylesheet Link: Links to the main CSS file for all styling. -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Theme Toggle Button: Allows users to switch between dark and light modes. -->
     <div class="theme-toggle-container" id="theme-toggle">
+        <!-- Icon will dynamically change between moon (🌙) and sun (☀️) via JavaScript. -->
         <div class="toggle-icon" id="toggle-icon">🌙</div>
     </div>
 
+    <!-- Main Content Container: Wraps the notebook and sidebar, using a grid layout. -->
     <div class="container">
+        <!-- Notebook Section: The primary area where names are written and displayed. -->
         <main class="notebook">
+            <!-- Header Section: Contains the main title and the rules of the Death Note. -->
             <header>
                 <h1>Death Note</h1>
                 <div class="rules-box">
@@ -332,24 +49,30 @@
                 </div>
             </header>
 
+            <!-- Input Section: Area for the user to enter a name. -->
             <section class="input-section">
-                <label>Target Identity</label>
+                <label for="name-input">Target Identity</label>
                 <input type="text" id="name-input" placeholder="Name..." autocomplete="off">
                 <button class="write-btn" id="add-btn">WRITE</button>
             </section>
 
+            <!-- Death List: Unordered list where added names and their death details will be displayed. -->
             <ul id="death-list"></ul>
         </main>
 
+        <!-- Sidebar Section: Contains mini-advertisements or thematic notices. -->
         <aside class="sidebar">
+            <!-- Ad Unit 1: Example advertisement/notice block. -->
             <div class="ad-unit">
                 <span class="ad-tag">Notice</span>
                 <div class="ad-content">High-contrast interface enabled for optimal use.</div>
             </div>
+            <!-- Ad Unit 2: Thematic quote. -->
             <div class="ad-unit">
                 <span class="ad-tag">Observation</span>
                 <div class="ad-content">"I am justice!" - Kira</div>
             </div>
+            <!-- Ad Unit 3: Thematic warning. -->
             <div class="ad-unit">
                 <span class="ad-tag">Warning</span>
                 <div class="ad-content">Every action has its consequence.</div>
@@ -357,6 +80,7 @@
         </aside>
     </div>
 
+    <!-- Modal Overlay: Hidden by default, appears when a name is entered to specify death details. -->
     <div id="modal-overlay">
         <div class="modal">
             <h2>Specify the End</h2>
@@ -368,96 +92,7 @@
         </div>
     </div>
 
-    <script>
-        const input = document.getElementById('name-input');
-        const addBtn = document.getElementById('add-btn');
-        const list = document.getElementById('death-list');
-        const modal = document.getElementById('modal-overlay');
-        const deathDesc = document.getElementById('death-desc');
-        const yesBtn = document.getElementById('yes-btn');
-        const noBtn = document.getElementById('no-btn');
-        const themeToggle = document.getElementById('theme-toggle');
-        const toggleIcon = document.getElementById('toggle-icon');
-
-        // Theme Toggle Logic
-        themeToggle.onclick = () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            setTheme(newTheme);
-        };
-
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            // Moon for dark, Sun with rays for light
-            toggleIcon.textContent = theme === 'light' ? '☀️' : '🌙';
-        }
-
-        // Load Preferences
-        window.onload = () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            setTheme(savedTheme);
-            
-            const saved = JSON.parse(localStorage.getItem('eDeathNoteFinal') || '[]');
-            saved.forEach(entry => renderEntry(entry.name, entry.desc));
-        };
-
-        function save() {
-            const entries = Array.from(document.querySelectorAll('.entry')).map(el => ({
-                name: el.querySelector('.victim-name').textContent,
-                desc: el.querySelector('.death-note').textContent
-            }));
-            localStorage.setItem('eDeathNoteFinal', JSON.stringify(entries));
-        }
-
-        function renderEntry(name, desc) {
-            const li = document.createElement('li');
-            li.className = 'entry';
-            li.innerHTML = `
-                <div class="entry-header">
-                    <span class="victim-name">${name}</span>
-                    <span class="erase-link">Erase</span>
-                </div>
-                <div class="death-note">${desc}</div>
-            `;
-
-            li.querySelector('.erase-link').onclick = () => {
-                li.style.opacity = '0';
-                setTimeout(() => { li.remove(); save(); }, 300);
-            };
-
-            list.prepend(li);
-        }
-
-        function triggerModal() {
-            const name = input.value.trim();
-            if (!name) return;
-            pendingName = name;
-            input.value = '';
-            modal.style.display = 'flex';
-            deathDesc.focus();
-        }
-
-        yesBtn.onclick = () => {
-            const desc = deathDesc.value.trim() || "Died of a sudden heart attack after 40 seconds.";
-            renderEntry(pendingName, desc);
-            closeModal();
-        };
-
-        noBtn.onclick = () => {
-            renderEntry(pendingName, "Died of a sudden heart attack after 40 seconds.");
-            closeModal();
-        };
-
-        function closeModal() {
-            modal.style.display = 'none';
-            deathDesc.value = '';
-            pendingName = '';
-            save();
-        }
-
-        addBtn.onclick = triggerModal;
-        input.onkeypress = (e) => { if(e.key === 'Enter') triggerModal(); };
-    </script>
+    <!-- External JavaScript Link: Links to the main JavaScript file for all interactivity. -->
+    <script src="script.js"></script>
 </body>
 </html>
