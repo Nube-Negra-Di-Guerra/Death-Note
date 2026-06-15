@@ -1,6 +1,6 @@
 /*
  * script.js
- * Description: This file handles all interactive functionalities for the E-Death Note web application.
+ * Description: This file handles all interactive functionalities for the Death Note web application.
  * It manages adding and removing names, displaying death specificities, and toggling between dark and light themes.
  * All data is persistently stored using the browser's localStorage.
  */
@@ -47,7 +47,7 @@ function save() {
         name: el.querySelector(".victim-name").textContent, // Get the victim's name
         desc: el.querySelector(".death-note").textContent // Get the death description
     }));
-    localStorage.setItem("eDeathNoteFinal", JSON.stringify(entries)); // Store as JSON string
+    localStorage.setItem("deathNoteEntries", JSON.stringify(entries)); // Store as JSON string
 }
 
 /*
@@ -142,6 +142,6 @@ window.onload = () => {
     setTheme(savedTheme); // Apply the theme
     
     // Load and render saved death note entries
-    const saved = JSON.parse(localStorage.getItem("eDeathNoteFinal") || "[]"); // Get saved entries or an empty array
+    const saved = JSON.parse(localStorage.getItem("deathNoteEntries") || "[]"); // Get saved entries or an empty array
     saved.forEach(entry => renderEntry(entry.name, entry.desc)); // Render each saved entry
 };
