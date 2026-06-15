@@ -1,4 +1,4 @@
-# E-Death Note
+# Death Note
 
 ## Unleash Your Inner Kira (For Fun Only)
 
@@ -15,7 +15,7 @@ This project is a simplistic, interactive web application that brings the concep
 *   **Responsive Layout**: The application adapts to different screen sizes, ensuring a consistent experience on desktops, tablets, and mobile devices.
 *   **Lore-Accurate Rules**: The rules displayed within the notebook are inspired by the original manga, adapted for a fun, digital context.
 
-## The Rules of the E-Death Note
+## The Rules of the Death Note
 
 *   The human whose name is written in this note shall die.
 *   If the cause of death is not specified, the person will die of a heart attack in 40 seconds.
@@ -53,4 +53,4 @@ Feel free to fork this repository, suggest improvements, or adapt it for your ow
 
 ## Disclaimer
 
-This E-Death Note is a fictional application created for entertainment purposes only. It is not intended to promote or encourage any form of violence, harm, or illegal activities. Users are reminded to use this application responsibly and in good humor. All content is purely imaginative and does not reflect real-world beliefs or intentions.
+This Death Note is a fictional application created for entertainment purposes only. It is not intended to promote or encourage any form of violence, harm, or illegal activities. Users are reminded to use this application responsibly and in good humor. All content is purely imaginative and does not reflect real-world beliefs or intentions.
